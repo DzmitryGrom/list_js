@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<meta charset="utf-8">
+</head>
+<body>
+	<div id="wr">
+		<i id="circle"></i>
+	</div>
+
+	<div class="classs"></div>
+	<div id="div" class="page">
+		<p>
+			<button  id="tg">смена цвета</button>
+		</p>
+		
+		<input type="text" id="display">
+		<ul id="list">
+			<li><input type="checkbox">двери<button data-name="button" class="btn" >Delete</button></li>
+			<li><input type="checkbox">окна<button  data-name="button" class="btn" >Delete</button></li>
+		</ul>
+		<button class="hidden" id="delet-li">удалить отмечанные</button>
+	</div>
+	<script>
+		// кнопка переключения цвета
+		var toggle = document.getElementById('tg'),
+			toggleColor = function(){
+				
+				 document.body.classList.toggle("nights");
+				
+			}
+		toggle.addEventListener('click', toggleColor);
+
+			// анимашка шарика
+			var obj = document.getElementById('circle');
+			setTimeout(function(){ obj.classList.add('active')}, 5000);
+
+// динамический список
+		 	var box = '',
+		 		btns = document.querySelectorAll('li > button'),
+		 		inputs = document.getElementsByTagName("input");
+
+		 		delLi = document.getElementById('delet-li'),
+		 		wrap = document.getElementById('list');
+		 	// добавление li в ul при нажатии ENTER
+		 	document.onkeyup = function (e) {
+				e =  window.event;
+				if (e.keyCode === 13) {
+					box = display.value;
+					// создание новой li
+					if(box != ''){
+					wrap.insertAdjacentHTML('beforeend','<li>'+ '<input type="checkbox">' + box + '<button>Delete</button>' + '</li>');
+					}
+					display.value = '';
+				}	return false;
+			}
+
+			//удаление li 
+			var deletElement = function(e) {
+				
+				 
+				// появление- изчезновение кнопки по checked					
+					if(  e.target.tagName == 'INPUT'){
+						
+			          	 if (event.target.checked) {
+			               delLi.classList.remove('hidden');
+			            }
+			            else {
+			            	delLi.classList.add('hidden');
+			            }
+					}
+
+				// удаление li по клику на кнопу delete
+					if(e.target.tagName == 'BUTTON'){
+					e.target.parentElement.remove();
+					
+					}
+
+								
+			}
+			// удаление по клику на кнопку удалить отмечанные
+			var deletElements = function(){
+				/*for(var i = 0; i < inputs.length; i++){
+						if(inputs[i].checked){
+							inputs[i].parentNode.remove();
+						}							
+				}
+				*/
+				var el = document.querySelectorAll('input:checked');
+				for(var i = 0; i < el.length; i++){
+					el[i].parentNode.remove()
+					delLi.classList.add('hidden');				
+				}
+
+			}		
+			//обработчики
+			list.addEventListener("click", deletElement);
+			
+			delLi.addEventListener("click", deletElements);
+	</script>
+			
+</body>
+</html>
