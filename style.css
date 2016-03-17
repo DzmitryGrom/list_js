@@ -8,8 +8,9 @@ html,body{
 	margin: 0 auto;
 	padding: 50px;
 }
-#display{
+#display,#search{
 	width: 100%;
+	margin-top: 5px;
 }
 #list{
 	list-style: none;

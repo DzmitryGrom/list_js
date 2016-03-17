@@ -15,7 +15,7 @@
 		<p>
 			<button  id="tg">смена цвета</button>
 		</p>
-		
+		<input type="text" id="search" placeholder="поиск">
 		<input type="text" id="display">
 		<ul id="list">
 			<li><input type="checkbox">двери<button data-name="button" class="btn" >Delete</button></li>
@@ -41,12 +41,11 @@
 		 	var box = '',
 		 		btns = document.querySelectorAll('li > button'),
 		 		inputs = document.getElementsByTagName("input");
-
+		 	 	
 		 		delLi = document.getElementById('delet-li'),
 		 		wrap = document.getElementById('list');
 		 	// добавление li в ul при нажатии ENTER
-		 	document.onkeyup = function (e) {
-				e =  window.event;
+		 	var addElement = function (e) {
 				if (e.keyCode === 13) {
 					box = display.value;
 					// создание новой li
@@ -99,6 +98,27 @@
 			list.addEventListener("click", deletElement);
 			
 			delLi.addEventListener("click", deletElements);
+
+	// поиск
+		var searchElements = function(e){
+					// переменная для li
+					var	lis = document.querySelectorAll('li');
+						
+						for(var j = 0; j < lis.length; j++){
+				
+							if(lis[j].childNodes[1].nodeValue.indexOf(search.value) === 0){
+								lis[j].classList.remove('hidden');
+							} else {
+								lis[j].classList.add('hidden');
+							}						
+						};
+				
+		}
+			//обработчики
+			search.addEventListener("keypress", searchElements);
+			document.addEventListener("keypress", addElement);
+
+
 	</script>
 			
 </body>
